@@ -1,0 +1,57 @@
+# Node modules
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temp files
+*.tmp
+*.bak
+*.log
+
+# User-specific config (不应该随仓库分发)
+.claude/
+
+# 测试案例（本地测试用，不随仓库分发）
+测试案例/
+测试案例.zip
+
+# 工具索引（每台机器不同，由脚本自动生成）
+skills/tool-index.md
+skills/tool-index.json
+
+# 编译产物
+*.exe
+*.dll
+*.so
+*.dylib
+work/
+
+
+# Build artifacts
+burp-mcp-full/build/classes/
+burp-mcp-full/build/libs/
+burp-mcp-full/lib/
+*.class
+*.jar
+!burp-mcp-full/build/libs/burp-mcp-full.jar
+
+# 已弃用的文件（保留用于历史参考）
+BOOTSTRAP.md
+
+# 生成的报告目录（避免未脱敏内容泄漏）
+reports/

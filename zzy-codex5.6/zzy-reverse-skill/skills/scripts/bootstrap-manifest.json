@@ -1,0 +1,238 @@
+{
+  "capabilities": [
+    {
+      "name": "jadx",
+      "bootstrapKind": "github-release-zip",
+      "repo": "skylot/jadx",
+      "assetRegex": "^jadx-[0-9].*\\.zip$",
+      "installDir": "%USERPROFILE%\\Tools\\jadx",
+      "docsUrl": "https://github.com/skylot/jadx",
+      "canAutoInstall": true,
+      "verifyCommand": "jadx"
+    },
+    {
+      "name": "apktool",
+      "bootstrapKind": "github-release-jar-wrapper",
+      "repo": "iBotPeaches/Apktool",
+      "assetRegex": "^apktool_.*\\.jar$",
+      "installDir": "%USERPROFILE%\\Tools\\apktool",
+      "wrapperName": "apktool.bat",
+      "docsUrl": "https://apktool.org/",
+      "canAutoInstall": true,
+      "verifyCommand": "apktool"
+    },
+    {
+      "name": "frida",
+      "bootstrapKind": "pip-package",
+      "pipPackage": "frida-tools",
+      "docsUrl": "https://frida.re/",
+      "canAutoInstall": true,
+      "verifyCommand": "frida"
+    },
+    {
+      "name": "frida-ps",
+      "bootstrapKind": "pip-package",
+      "pipPackage": "frida-tools",
+      "docsUrl": "https://frida.re/",
+      "canAutoInstall": true,
+      "verifyCommand": "frida-ps"
+    },
+    {
+      "name": "idalib-mcp",
+      "bootstrapKind": "pip-package",
+      "pipPackage": "ida-pro-mcp",
+      "pipSource": "git+https://github.com/mrexodia/ida-pro-mcp.git",
+      "docsUrl": "https://github.com/mrexodia/ida-pro-mcp",
+      "canAutoInstall": true,
+      "verifyCommand": "ida-pro-mcp",
+      "postInstallSteps": [
+        "ida-pro-mcp --install (选择 Streamable HTTP + Global)",
+        "重启 IDA Pro 使插件生效",
+        "IDA 打开文件后 MCP 自动监听 127.0.0.1:13337"
+      ]
+    },
+    {
+      "name": "jshookmcp",
+      "bootstrapKind": "npm-mcp",
+      "npmPackage": "@jshookmcp/jshook@latest",
+      "mcpNames": ["jshook"],
+      "mcpCommand": "npx",
+      "mcpArgs": ["-y", "@jshookmcp/jshook@latest"],
+      "mcpEnv": {
+        "JSHOOK_BASE_PROFILE": "search"
+      },
+      "docsUrl": "https://github.com/vmoranv/jshookmcp",
+      "canAutoInstall": true,
+      "verifyCommand": "npx"
+    },
+    {
+      "name": "anything-analyzer",
+      "bootstrapKind": "local-http-mcp",
+      "repoUrl": "https://github.com/Mouseww/anything-analyzer",
+      "installDir": "%USERPROFILE%\\Tools\\anything-analyzer",
+      "startupDirCandidates": [
+        "%USERPROFILE%\\Tools\\anything-analyzer"
+      ],
+      "startCommand": "pnpm",
+      "startArgs": ["dev"],
+      "mcpNames": ["anything-analyzer", "local-mcp"],
+      "mcpUrl": "http://localhost:23816/mcp",
+      "servicePort": 23816,
+      "docsUrl": "https://github.com/Mouseww/anything-analyzer",
+      "canAutoInstall": true,
+      "verificationMode": "service-or-registration"
+    },
+    {
+      "name": "idapro",
+      "bootstrapKind": "local-http-mcp",
+      "dependsOn": ["idalib-mcp"],
+      "mcpNames": ["idapro"],
+      "mcpUrl": "http://127.0.0.1:13337/mcp",
+      "servicePort": 13337,
+      "servicePortRange": [13337, 13350],
+      "portNote": "IDA 多实例时端口递增 (13337→13338→...)，检查 IDA Output 窗口的 [MCP] port=xxxxx 日志",
+      "startScript": "%SKILL_ROOT%\\ida-reverse\\scripts\\start.ps1",
+      "docsUrl": "https://hex-rays.com/ida-pro/",
+      "canAutoInstall": true,
+      "verificationMode": "service-and-registration"
+    },
+    {
+      "name": "r2",
+      "bootstrapKind": "github-release-zip",
+      "repo": "radareorg/radare2",
+      "assetRegex": "^radare2-.*-w64\\.zip$",
+      "installDir": "%USERPROFILE%\\Tools\\radare2",
+      "docsUrl": "https://github.com/radareorg/radare2",
+      "canAutoInstall": true,
+      "verifyCommand": "r2"
+    },
+    {
+      "name": "rabin2",
+      "bootstrapKind": "github-release-zip",
+      "repo": "radareorg/radare2",
+      "assetRegex": "^radare2-.*-w64\\.zip$",
+      "installDir": "%USERPROFILE%\\Tools\\radare2",
+      "docsUrl": "https://github.com/radareorg/radare2",
+      "canAutoInstall": true,
+      "verifyCommand": "rabin2"
+    },
+    {
+      "name": "adb",
+      "bootstrapKind": "winget-package",
+      "wingetId": "Google.PlatformTools",
+      "installDir": "%LOCALAPPDATA%\\Android\\Sdk\\platform-tools",
+      "docsUrl": "https://developer.android.com/tools/releases/platform-tools",
+      "canAutoInstall": true,
+      "verifyCommand": "adb"
+    },
+    {
+      "name": "agent-browser",
+      "bootstrapKind": "npm-global",
+      "npmPackage": "agent-browser",
+      "postInstall": "npx playwright install chromium",
+      "installDir": "%LOCALAPPDATA%\\ms-playwright",
+      "docsUrl": "https://github.com/nicepkg/agent-browser",
+      "canAutoInstall": true,
+      "verifyCommand": "agent-browser",
+      "setupScript": "%SKILL_ROOT%\\browser-automation\\scripts\\setup.ps1"
+    },
+    {
+      "name": "ghidra-mcp",
+      "bootstrapKind": "github-release-zip",
+      "repo": "NationalSecurityAgency/ghidra",
+      "assetRegex": "^ghidra_.*_PUBLIC_.*\\.zip$",
+      "installDir": "%USERPROFILE%\\Tools\\ghidra",
+      "docsUrl": "https://ghidra-sre.org/",
+      "canAutoInstall": true,
+      "verifyCommand": "analyzeHeadless",
+      "postInstallSteps": [
+        "下载 GhidraMCP 插件: https://github.com/LaurieWired/GhidraMCP/releases",
+        "将插件 zip 安装到 Ghidra: File → Install Extensions → 选择下载的 zip",
+        "MCP server 在 Ghidra 项目打开后自动监听 localhost:8765"
+      ],
+      "mcpNames": ["ghidra"],
+      "mcpUrl": "http://localhost:8765/mcp",
+      "servicePort": 8765,
+      "verificationMode": "service-or-registration"
+    },
+    {
+      "name": "seclists",
+      "bootstrapKind": "git-clone",
+      "repo": "https://github.com/danielmiessler/SecLists.git",
+      "installDir": "%USERPROFILE%\\Tools\\SecLists",
+      "docsUrl": "https://github.com/danielmiessler/SecLists",
+      "canAutoInstall": true
+    },
+    {
+      "name": "proxycat",
+      "bootstrapKind": "git-clone",
+      "repo": "https://github.com/honmashironeko/ProxyCat.git",
+      "installDir": "&lt;工具根目录&gt;\\ProxyCat",
+      "docsUrl": "https://github.com/honmashironeko/ProxyCat",
+      "canAutoInstall": true,
+      "verifyCommand": "proxycat",
+      "postInstallSteps": [
+        "git clone https://github.com/honmashironeko/ProxyCat.git &lt;工具根目录&gt;\\ProxyCat",
+        "pip install -r &lt;工具根目录&gt;\\ProxyCat\\requirements.txt",
+        "使用 &lt;工具根目录&gt;\\bin\\proxycat.bat 启动"
+      ]
+    },
+    {
+      "name": "burpsuite-mcp",
+      "bootstrapKind": "local-http-mcp",
+      "mcpNames": ["burpsuite"],
+      "mcpUrl": "http://localhost:9876/mcp",
+      "servicePort": 9876,
+      "docsUrl": "https://portswigger.net/burp",
+      "canAutoInstall": false,
+      "verificationMode": "service-or-registration",
+      "manualInstallHint": "在 BurpSuite 扩展市场搜索 MCP 插件安装，启动后监听 localhost:9876"
+    },
+    {
+      "name": "nmap",
+      "bootstrapKind": "winget-package",
+      "wingetId": "Insecure.Nmap",
+      "docsUrl": "https://nmap.org/",
+      "canAutoInstall": true,
+      "verifyCommand": "nmap"
+    },
+    {
+      "name": "pentestswarm",
+      "bootstrapKind": "go-install",
+      "goPackage": "github.com/Armur-Ai/Pentest-Swarm-AI/cmd/pentestswarm@latest",
+      "fallbackKind": "docker-image",
+      "dockerImage": "ghcr.io/armur-ai/pentestswarm:latest",
+      "mcpNames": ["pentestswarm"],
+      "mcpCommand": "pentestswarm",
+      "mcpArgs": ["mcp", "serve"],
+      "docsUrl": "https://github.com/Armur-Ai/Pentest-Swarm-AI",
+      "canAutoInstall": true,
+      "verifyCommand": "pentestswarm",
+      "note": "群体智能渗透框架。需要 Go 1.24+ 或 Docker。支持 MCP server 模式。需要 Claude/Ollama API key。"
+    },
+    {
+      "name": "binwalk",
+      "bootstrapKind": "winget-package",
+      "wingetId": "ReFirmLabs.binwalk",
+      "docsUrl": "https://github.com/ReFirmLabs/binwalk",
+      "canAutoInstall": true,
+      "verifyCommand": "binwalk"
+    },
+    {
+      "name": "yara",
+      "bootstrapKind": "winget-package",
+      "wingetId": "VirusTotal.YARA",
+      "docsUrl": "https://github.com/VirusTotal/yara",
+      "canAutoInstall": true,
+      "verifyCommand": "yara"
+    },
+    {
+      "name": "pwntools",
+      "bootstrapKind": "pip-package",
+      "pipPackage": "pwntools",
+      "docsUrl": "https://github.com/Gallopsled/pwntools",
+      "canAutoInstall": true,
+      "verifyCommand": "pwntools"
+    }
+  ]
+}

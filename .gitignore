@@ -1,0 +1,33 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+*.p12
+*.key
+credentials.json
+auth.json
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Node and Java builds
+node_modules/
+dist/
+build/
+target/
+*.class
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
